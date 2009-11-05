@@ -1,7 +1,7 @@
 %w{rubygems sinatra rdiscount}.each{|l| require(l)};F=File;L="c";def C(f);"#{L}/#{f}";end; `mkdir #{L} && cd #{L} && git init`
 get(%r{\/([^/]*)\/versions\/?}){|t| @t = t; @v=`cd #{L} && git log --format=format:"%ai | %aN | %H" #{t}`; erb(:v)}
 get('/'){redirect('/HomePage')}; get(%r{\/([^/]*)\/?(edit)?}){|u,e|@t=u;@c=F.read(C(u)) rescue ''
-(@c == '' || e) ? @t="Edit: #{@t}" && erb(:e) : (@vc = `cd #{L} && git log --pretty=oneline #{u} | wc -l`) && erb(:p)}
+(@c == '' || e) ? @t="Edit: #{@t}" && erb(:e) : (@vc=`cd #{L} && git log --pretty=oneline #{u} | wc -l`) && erb(:p)}
 post(%r{\/([^/]*)\/?}){|t|F.open(C(t),'w+'){|f|f.write(params[:c])};`cd #{L} && git add . && git commit -m 'Updated #{t}'`;redirect("/#{t}")}
 __END__
 @@layout
