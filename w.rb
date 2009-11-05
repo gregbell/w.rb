@@ -1,7 +1,7 @@
-%w{rubygems sinatra rdiscount}.each{|l| require(l)};L="c";def C(f);"#{L}/#{f}";end; `mkdir #{L}`
-get('/'){redirect '/HomePage'}; get(%r{\/([^/]*)\/?(edit)?}){|u, e| @t = u; @c = File.read(C(u)) rescue ''
-(@c == '' || e) ? @t = "Edit: #{@t}" && erb(:e) : erb(:p) }
-post(%r{\/([^/]*)\/?}){|t| File.open(C(t),'w+') {|f| f.write params[:c] }; redirect("/#{t}") }
+%w{rubygems sinatra rdiscount}.each{|l| require(l)};F=File;L="c";def C(f);"#{L}/#{f}";end; `mkdir #{L}`
+get('/'){redirect('/HomePage')}; get(%r{\/([^/]*)\/?(edit)?}){|u,e|@t=u;@c=F.read(C(u)) rescue ''
+(@c == '' || e) ? @t="Edit: #{@t}" && erb(:e) : erb(:p)}
+post(%r{\/([^/]*)\/?}){|t|F.open(C(t),'w+'){|f|f.write(params[:c])};redirect("/#{t}")}
 __END__
 @@layout
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN""http://www.w3.org/TR/html4/strict.dtd">
